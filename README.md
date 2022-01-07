@@ -1,7 +1,8 @@
-## THIS IS OUR RASPBERRY PI PROYECT WRITTEN IN PYTHON
+## TECHNOLOGY HEALTH COMPUTING
+
+Aplicación que monitoriza la distancia de la persona frente al monitor y la analiza para una mejora ergonomica del usuario.
 
 ## INSTALAR PYTHON IDE
-
     sudo apt update
     sudo apt install python3 idle3
 
