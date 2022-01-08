@@ -1,13 +1,14 @@
 #prerequisites: pip install requests
 import requests
+from timeit import default_timer as timer
+from grove.grove_ultrasonic_ranger import GroveUltrasonicRanger
+import RPi.GPIO as GPIO
+import time
+
 url = 'https://corlysis.com:8086/write'
 params = {"db": "Technology_Health_Computing", "u": "token", "p": "ecbef8c057c4ebac95399b37189bcf5e"}
 
 
-import time
-from grove.grove_ultrasonic_ranger import GroveUltrasonicRanger
-import RPi.GPIO as GPIO
-import time
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(24, GPIO.OUT)
 
@@ -16,22 +17,20 @@ def main():
     sensor = GroveUltrasonicRanger(16)
     while True:
             distance = sensor.get_distance()
-            status = "optimum"
             print('{} cm'.format(distance))
-            payload = 'meas_test,distance='+ status +' value=' + str(distance)
             
             if distance < 50:
                 print('WARNING DEMASIADO CERCA')
                 GPIO.output(24, True)
                 time.sleep(1)
                 GPIO.output(24, False)
-                status = "bad"
+                payload = 'meas_test,distance=bad' + ' value=' + str(distance)
                 r = requests.post(url, params=params, data=payload)
 
             elif distance <= 150 and distance >= 50:
                 print('DISTANCIA OPTIMA PARSERO!')
                 GPIO.output(24, False)
-                status = "optimum"
+                payload = 'meas_test,distance=optimum' + ' value=' + str(distance)
                 r = requests.post(url, params=params, data=payload)
             else:
                 print('ACERCATE MAS ANDA')
