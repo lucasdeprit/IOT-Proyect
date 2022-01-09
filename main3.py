@@ -9,7 +9,7 @@ import threading
 url = 'https://corlysis.com:8086/write'
 params = {"db": "Technology_Health_Computing", "u": "token", "p": "ecbef8c057c4ebac95399b37189bcf5e"}
 
-def main():
+def myfunction():
     sensor = GroveUltrasonicRanger(16)
     lejos=True
     medio=True
@@ -52,6 +52,8 @@ def main():
             r= requests.post(url,params=params,data=payload)
     
     time.sleep(1)
+def main():
+    myfunction()
 
 if __name__ == '__main__':
  main()
