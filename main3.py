@@ -30,15 +30,15 @@ def myfunction():
 
     		time.sleep(1)
             #temp
-            #payload = 'temp_test,temp=actual'+'value='+str(temp)
-            #r= requests.post(url,params=params,data=payload)
+            payload = 'temp_test,temp=actual'+' value='+str(temp)
+            r= requests.post(url,params=params,data=payload)
 
             #humi
-            #payloadhumi = 'humi_test,humi=actual' + 'value='+ str(humi)
-            #ri= requests.post(url,params=params,data=payloadhumi)
+            payloadhumi = 'humi_test,humi=actual' + ' value='+ str(humi)
+            ri= requests.post(url,params=params,data=payloadhumi)
 
             #dist
-            payloaddist = 'meas_test,distance=bad' + 'value=' + str(distance)
+            payloaddist = 'meas_test,distance=bad' + ' value=' + str(distance)
             rd= requests.post(url,params=params,data=payloaddist)
     
         if distance >=50 and distance <150 and medio:
@@ -51,15 +51,15 @@ def myfunction():
                 cerca=True
             
             #temp
-            #payload = 'temp_test,temp=actual'+'value='+str(temp)
-            #r= requests.post(url,params=params,data=payload)
+            payload = 'temp_test,temp=actual'+' value='+str(temp)
+            r= requests.post(url,params=params,data=payload)
             
             #humi
-            #payloadhumi = 'humi_test,humi=actual' + 'value='+ str(humi)
-            #ri= requests.post(url,params=params,data=payloadhumi)
+            payloadhumi = 'humi_test,humi=actual' + ' value='+ str(humi)
+            ri= requests.post(url,params=params,data=payloadhumi)
 
             #dist
-            payloaddist = 'meas_test,distance=optimum' + 'value=' + str(distance)
+            payloaddist = 'meas_test,distance=optimum' + ' value=' + str(distance)
             rd= requests.post(url,params=params,data=payloaddist)
     
         if distance < 50 and cerca:
