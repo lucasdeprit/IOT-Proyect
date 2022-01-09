@@ -71,16 +71,16 @@ def myfunction():
                 lejos=True
             
             #temp
-            #payload = 'temp_test,temp=actual'+'value='+str(temp)
-            #r= requests.post(url,params=params,data=payload)
+            payload = 'temp_test,temp=actual'+' value='+str(temp)
+            r= requests.post(url,params=params,data=payload)
  
             #humi
-            #payloadhumi = 'humi_test,humi=actual' + 'value='+ str(humi)
-            #ri= requests.post(url,params=params,data=payloadhumi)
+            payloadhumi = 'humi_test,humi=actual' + ' value='+ str(humi)
+            ri= requests.post(url,params=params,data=payloadhumi)
 
 
             #dist
-            payloaddist = 'meas_test,distance=out'+'value=' + str(distance)
+            payloaddist = 'meas_test,distance=out'+' value=' + str(distance)
             rd= requests.post(url,params=params,data=payloaddist)
     
     time.sleep(1)
