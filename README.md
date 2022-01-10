@@ -63,4 +63,9 @@ Aplicación que monitoriza la distancia de la persona frente al monitor y la ana
 
     pip install requests #para realizar las requests
 
+## EJEMPLOS DE USO
+![prototype Image](https://github.com/lucasdeprit/IOT-Proyect/blob/master/Images/prototype.jpg)
+
+![Test Image](https://github.com/lucasdeprit/IOT-Proyect/blob/master/Images/example.png)
+
 
