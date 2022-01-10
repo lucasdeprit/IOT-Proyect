@@ -19,6 +19,26 @@ Aplicación que monitoriza la distancia de la persona frente al monitor y la ana
     
     ./curl.sh #para generar los documentos de recolecta de datos y mandar un mail
     
+### CREAR DATAFILES Y MANDAR MAIL CADA CIERTO TIEMPO
+
+    crontab -e
+
+    insertamos la siguiente linea con la ruta del proyecto
+
+    */5 * * * * /home/pi/IOT-Proyect/Data/curl.sh #cada 5 mins
+
+    reiniciamos el servicio de crontab
+
+    /sbin/service cron start
+
+### INICIALIZAR AL INICIO DE LA RPI
+
+    sudo nano /home/pi/.bashrc
+
+    insertar las siguiente linea con la ruta de tu proyecto
+
+    sudo python /home/pi/IOT-Proyect/main.py
+    
 
 ## DEPENDENCIAS
 
@@ -43,23 +63,4 @@ Aplicación que monitoriza la distancia de la persona frente al monitor y la ana
 
     pip install requests #para realizar las requests
 
-### CREAR DATAFILES Y MANDAR MAIL CADA CIERTO TIEMPO
 
-    crontab -e
-
-    insertamos la siguiente linea con la ruta del proyecto
-
-    */5 * * * * /home/pi/IOT-Proyect/Data/curl.sh #cada 5 mins
-
-    reiniciamos el servicio de crontab
-
-    /sbin/service cron start
-
-### INICIALIZAR AL INICIO DE LA RPI
-
-    sudo nano /home/pi/.bashrc
-
-    insertar las siguiente linea con la ruta de tu proyecto
-
-    sudo python /home/pi/IOT-Proyect/main.py
-    
