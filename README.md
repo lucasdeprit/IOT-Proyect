@@ -2,6 +2,24 @@
 
 Aplicación que monitoriza la distancia de la persona frente al monitor y la analiza para una mejora ergonomica del usuario.
 
+
+## INSTALACIÓN 
+
+   Clonamos el repositorio
+    
+    git clone https://github.com/lucasdeprit/IOT-Proyect.git
+    
+   para ejecutarlo manualmente realizaremos los siguientes pasos:
+    
+    cd IOT-Proyect/
+    
+    python main.py #para ejecutar los sensores y guardar los datos en corlysis
+    
+    cd Data/
+    
+    ./curl.sh #para generar los documentos de recolecta de datos y mandar un mail
+    
+
 ## DEPENDENCIAS
 
 ### INSTALAR PYTHON IDE
@@ -44,20 +62,4 @@ Aplicación que monitoriza la distancia de la persona frente al monitor y la ana
     insertar las siguiente linea con la ruta de tu proyecto
 
     sudo python /home/pi/IOT-Proyect/main.py
-    
-## INSTALACIÓN 
-
-   Clonamos el repositorio
-    
-    git clone https://github.com/lucasdeprit/IOT-Proyect.git
-    
-   para ejecutarlo manualmente realizaremos los siguientes pasos:
-    
-    cd IOT-Proyect/
-    
-    python main.py #para ejecutar los sensores y guardar los datos en corlysis
-    
-    cd Data/
-    
-    ./curl.sh #para generar los documentos de recolecta de datos y mandar un mail
     
