@@ -4,28 +4,28 @@ Aplicación que monitoriza la distancia de la persona frente al monitor y la ana
 
 ## DEPENDENCIAS
 
-# INSTALAR PYTHON IDE
+### INSTALAR PYTHON IDE
 
     sudo apt update
     sudo apt install python3 idle3
 
-# INSTALAR LIBRERÍA SEEED STUDIO
+### INSTALAR LIBRERÍA SEEED STUDIO
 
     curl -sL https://github.com/Seeed-Studio/grove.py/raw/master/install.sh | sudo bash -s -
 
-# INSTALAR SEEED_DHT
+### INSTALAR SEEED_DHT
 
     sudo pip install seeed-python-dht ##para sensor de humedad y temperatura
     
-# INSTALAR SERVICIO SMTP
+### INSTALAR SERVICIO SMTP
 
     sudo pip install smtplib #para mandar los mails
     
-# INSTALAR LIBRERÍA REQUESTS
+### INSTALAR LIBRERÍA REQUESTS
 
     pip install requests #para realizar las requests
 
-# CREAR DATAFILES Y MANDAR MAIL CADA CIERTO TIEMPO
+### CREAR DATAFILES Y MANDAR MAIL CADA CIERTO TIEMPO
 
     crontab -e
 
@@ -37,7 +37,7 @@ Aplicación que monitoriza la distancia de la persona frente al monitor y la ana
 
     /sbin/service cron start
 
-# INICIALIZAR AL INICIO DE LA RPI
+### INICIALIZAR AL INICIO DE LA RPI
 
     sudo nano /home/pi/.bashrc
 
