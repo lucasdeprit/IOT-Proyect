@@ -1,42 +1,47 @@
-# send_attachment.py
-# import necessary packages
-from email.mime.multipart import MIMEMultipart
-from email.MIMEImage import MIMEImage
-from email.mime.text import MIMEText
+#!/usr/bin/env python
+
 import smtplib
 from datetime import datetime
-import json
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+from email.mime.base import MIMEBase
+from email import encoders
+sender_email = "canutorioiot@gmail.com"
+receiver_email = "canutorioiot@gmail.com"
+message = MIMEMultipart()
+message["From"] = sender_email
+message['To'] = receiver_email
+message['Subject'] = "sending mail using python"
 
-# create message object instance
-msg = MIMEMultipart()
+file = 'data_' + datetime.today().strftime('%Y-%m-%d') + '.csv'
+attachment = open('/home/pi/IOT-Proyect/Data/' + file,'rb')
+obj = MIMEBase('application','octet-stream')
+obj.set_payload((attachment).read())
+encoders.encode_base64(obj)
+obj.add_header('Content-Disposition',"attachment; filename= "+file)
+message.attach(obj)
+
+file2 = 'data_temp_' + datetime.today().strftime('%Y-%m-%d') + '.csv'
+attachment2 = open('/home/pi/IOT-Proyect/Data/' +file2,'rb')
+obj2 = MIMEBase('application','octet-stream')
+obj2.set_payload((attachment2).read())
+encoders.encode_base64(obj2)
+obj2.add_header('Content-Disposition',"attachment; filename= "+file2)
+message.attach(obj2)
 
 
-# setup the parameters of the message
-password = "canutorioiot1234"
-msg['From'] = "canutorioiot@gmail.com"
-msg['To'] = "canutorioiot@gmail.com"
-msg['Subject'] = "rpi"
+file3 = 'data_humi_' + datetime.today().strftime('%Y-%m-%d') + '.csv'
+attachment3 = open('/home/pi/IOT-Proyect/Data/' +file3,'rb')
+obj3 = MIMEBase('application','octet-stream')
+obj3.set_payload((attachment3).read())
+encoders.encode_base64(obj3)
+obj3.add_header('Content-Disposition',"attachment; filename= "+file3)
+message.attach(obj3)
 
-# attach image to message body
-body=""
-msg.attach(MIMEText(body,'plain'))
-with open(r'/home/pi/IOT-Proyect/Data/data_' + datetime.today().strftime('%Y-%m-%d') + '.json') as f:  
-  data = json.load(f)  
-attachment = MIMEText(json.dumps(data))
-attachment.add_header('Content-Disposition', 'attachment', filename= file('data_' + datetime.today().strftime('%Y-%m-%d') + '.json').read())
-msg.attach(attachment)
-# create server
-server = smtplib.SMTP('smtp.gmail.com: 587')
-
-server.starttls()
-
-# Login Credentials for sending the mail
-server.login(msg['canutorioiot@gmail.com'], 'canutorioiot1234')
-
-
-# send the message via the server.
-server.sendmail(msg['canutorioiot@gmail.com'], msg['canutorioiot@gmail.com'], msg.as_string())
-
-server.quit()
-
-print "successfully sent email to %s:" % (msg['canutorioiot'])
+my_message = message.as_string()
+email_session = smtplib.SMTP('smtp.gmail.com',587)
+email_session.starttls()
+email_session.login(sender_email,'canutorioiot1234')
+email_session.sendmail(sender_email,receiver_email,my_message)
+email_session.quit()
+print("YOUR MAIL HAS BEEN SENT SUCCESSFULLY")

@@ -1,42 +1,91 @@
-#prerequisites: pip install requests
 import requests
 from timeit import default_timer as timer
 from grove.grove_ultrasonic_ranger import GroveUltrasonicRanger
+from seeed_dht import DHT
 import RPi.GPIO as GPIO
 import time
+import threading
 
 url = 'https://corlysis.com:8086/write'
-params = {"db": "Technology_Health_Computing", "u": "token", "p": "ecbef8c057c4ebac95399b37189bcf5e"}
+params = {"db": "Technology_Health_Computing", "u": "token", "p": "3f7e15aa74f0d3b3a82917297b280976"}
 
-
-GPIO.setmode(GPIO.BCM)
-GPIO.setup(24, GPIO.OUT)
-
-def main():
-    # Grove - Ultrasonic Ranger connected to port D16
+def myfunction():
     sensor = GroveUltrasonicRanger(16)
+    sensortemp = DHT('11', 5)
+    lejos=True
+    medio=True
+    cerca=True
     while True:
-            distance = sensor.get_distance()
+        distance = int(sensor.get_distance())
+        humi, temp = sensortemp.read()
+        if distance >= 150 and lejos:
+            print('fuera')
             print('{} cm'.format(distance))
-            
-            if distance < 50:
-                print('WARNING DEMASIADO CERCA')
-                GPIO.output(24, True)
-                time.sleep(1)
-                GPIO.output(24, False)
-                payload = 'meas_test,distance=bad' + ' value=' + str(distance)
-                r = requests.post(url, params=params, data=payload)
+            lejos=False
+            if not medio:
+                medio=True
+            if not cerca:
+                cerca=True
 
-            elif distance <= 150 and distance >= 50:
-                print('DISTANCIA OPTIMA PARSERO!')
-                GPIO.output(24, False)
-                payload = 'meas_test,distance=optimum' + ' value=' + str(distance)
-                r = requests.post(url, params=params, data=payload)
-            else:
-                print('ACERCATE MAS ANDA')
-            GPIO.output(24, False)
-            time.sleep(3)
+    		time.sleep(1)
+            #temp
+            payload = 'temp_test,temp=actual'+' value='+str(temp)
+            r= requests.post(url,params=params,data=payload)
+
+            #humi
+            payloadhumi = 'humi_test,humi=actual' + ' value='+ str(humi)
+            ri= requests.post(url,params=params,data=payloadhumi)
+
+            #dist
+            payloaddist = 'meas_test,distance=bad' + ' value=' + str(distance)
+            rd= requests.post(url,params=params,data=payloaddist)
+    
+        if distance >=50 and distance <150 and medio:
+            print('optimo')
+            print('{} cm'.format(distance))
+            medio=False
+            if not lejos:
+                lejos=True
+            if not cerca:
+                cerca=True
+            
+            #temp
+            payload = 'temp_test,temp=actual'+' value='+str(temp)
+            r= requests.post(url,params=params,data=payload)
+            
+            #humi
+            payloadhumi = 'humi_test,humi=actual' + ' value='+ str(humi)
+            ri= requests.post(url,params=params,data=payloadhumi)
+
+            #dist
+            payloaddist = 'meas_test,distance=optimum' + ' value=' + str(distance)
+            rd= requests.post(url,params=params,data=payloaddist)
+    
+        if distance < 50 and cerca:
+            print('muy cerca')
+            print('{} cm'.format(distance))
+            cerca=False
+            if not medio:
+                medio=True
+            if not lejos:
+                lejos=True
+            
+            #temp
+            payload = 'temp_test,temp=actual'+' value='+str(temp)
+            r= requests.post(url,params=params,data=payload)
+ 
+            #humi
+            payloadhumi = 'humi_test,humi=actual' + ' value='+ str(humi)
+            ri= requests.post(url,params=params,data=payloadhumi)
+
+
+            #dist
+            payloaddist = 'meas_test,distance=out'+' value=' + str(distance)
+            rd= requests.post(url,params=params,data=payloaddist)
+    
+    time.sleep(1)
+def main():
+    myfunction()
 
 if __name__ == '__main__':
-    main()
-
+ main()
