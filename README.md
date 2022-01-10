@@ -65,11 +65,10 @@ Aplicación que monitoriza la distancia de la persona frente al monitor y la ana
 
 ## EJEMPLOS DE USO
 
-======
+
 
 ![Test Image](https://github.com/lucasdeprit/IOT-Proyect/blob/master/Images/example.png)
 
-======
 
 ![prototype Image](https://github.com/lucasdeprit/IOT-Proyect/blob/master/Images/prototype.jpg)
 
